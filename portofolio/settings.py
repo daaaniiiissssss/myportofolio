@@ -32,8 +32,9 @@ SECRET_KEY = 'django-insecure-z7hrk*7)h-+&y&-=3@_y%o+07oos5j)tp$tkt37h!^e-1!as&3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "nauval-adiva-myportofolio.pws.cs.ui.ac.id"
+]
 
 # Application definition
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,6 +140,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+WHITENOISE_USE_FINDERS = True
 
 
 # Email
