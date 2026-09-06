@@ -191,3 +191,64 @@ h1, .brand {
         justify-content: flex-start;
     }
 }
+
+.section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-heading {
+    margin-bottom: 3rem;
+}
+
+.section-kicker {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+}
+
+.section-heading h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.1;
+}
+
+.education-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.education-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.education-item:first-child {
+    border-top: 1px solid var(--line);
+}
+
+.education-year {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.education-content h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+}
+
+.education-program {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.education-content p:last-child {
+    color: var(--text-muted);
+}
