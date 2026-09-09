@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nauval Adiva Daneshwara - Portfolio</title>
+    <title>{{ name }} - Portfolio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,14 +22,14 @@
     <header class="site-header">
         <div class="container">
 
-            <a href="#profile" class="brand">
-                Danesh
+            <a href="{% url 'main:show_main' %}" class="brand">
+                {{ name }}
             </a>
 
             <nav>
-                <a href="#profile">Profile</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
                 <a href="#education">Education</a>
-                <a href="#experience">Experience</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
 
         </div>
@@ -43,39 +43,41 @@
 
                 <div class="hero-identity">
                     <p class="hero-kicker">
-                        Sistem Informasi &middot; Universitas Indonesia
+                        {{ study_program }} &middot; Universitas Indonesia
                     </p>
+
                     <h1>
-                        Nauval Adiva Daneshwara
+                        {{ name }}
                     </h1>
                 </div>
 
 
                 <div class="hero-photo">
                     <div class="photo-block"></div>
+
                     <img
                         class="avatar"
                         src="/static/img/profile.jpeg"
-                        alt="Photo of Nauval Adiva Daneshwara"
+                        alt="Photo of {{ name }}"
                     >
                 </div>
 
 
                 <div class="hero-details">
                     <p class="bio">
-                        Just a footballer that happens to choose CS major.
+                        {{ bio }}
                     </p>
 
                     <dl class="meta-list">
 
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506623074</dd>
+                            <dd>{{ npm }}</dd>
                         </div>
 
                         <div class="meta-row">
                             <dt>Program</dt>
-                            <dd>Sistem Informasi</dd>
+                            <dd>{{ study_program }}</dd>
                         </div>
 
                     </dl>
@@ -94,16 +96,17 @@
             </div>
         </section>
 
+
         <section class="section education-section" id="education">
             <div class="container">
-                
+
                 <div class="section-heading">
-                    <p class="section-kicker">EDUCATION>
+                    <p class="section-kicker">EDUCATION</p>
                     <h2>Education</h2>
-                    </p>
                 </div>
 
                 <div class="education-list">
+
                     <article class="education-item">
                         <div class="education-year">
                             2025 - Present
@@ -122,89 +125,46 @@
                         </div>
                     </article>
 
+
                     <article class="education-item">
                         <div class="education-year">
                             2022-2025
                         </div>
 
-                    <div class="education-content">
-                        <h3>SMA Pribadi Bandung</h3>
+                        <div class="education-content">
+                            <h3>SMA Pribadi Bandung</h3>
 
-                        <p class="education-program">
-                            Sekolah Menengah Atas
-                        </p>
+                            <p class="education-program">
+                                Sekolah Menengah Atas
+                            </p>
 
-                        <p>
-                            SMA Spaling kece se Bandung Raya
-                        </p>
-                    </div> 
+                            <p>
+                                SMA Spaling kece se Bandung Raya
+                            </p>
+                        </div>
                     </article>
+
 
                     <article class="education-item">
                         <div class="education-year">
                             2019-2022
                         </div>
 
-                    <div class="education-content">
-                        <h3>SMP Semesta Jangli</h3>
+                        <div class="education-content">
+                            <h3>SMP Semesta Jangli</h3>
 
-                        <p class="education-program">
-                            Sekolah Menengah Pertama
-                        </p>
-
-                        <p>
-                            fun fact: saya angkatan pertama sekolah ini
-                        </p>
-                    </div> 
-                    </article>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="experience" class="experience-section">
-            <div class="container">
-                <div class="section-heading">
-                    <p class="section-kicker">EXPERIENCE</p>
-                    <h2>My Experience</h2>
-                </div>
-
-                <div class="experience-list">
-                    <article class="experience-item">
-                        <div class="experience-year">
-                            FOREVERRRRR til death do us apart
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Sepak Bola</h3>
-                            <p class="experience-role">
-                                pemain ter jago everywhere i go
+                            <p class="education-program">
+                                Sekolah Menengah Pertama
                             </p>
+
                             <p>
-                                Berpengalaman sejak SD kelas 3, beberapa kali
-                                mewakili provinsi dalam ajang nasional, countless
-                                trophies won.
+                                fun fact: saya angkatan pertama sekolah ini
                             </p>
                         </div>
                     </article>
 
-                    <article class="experience-item">
-                        <div class="experience-year">
-                            2023-2024
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>OSIS</h3>
-                            <p class="experience-role">
-                                Sekretaris
-                            </p>
-                            <p>
-                                Menjadi sekretaris yang juga memegang
-                                banyak proker OSIS pada masa jabatan saya.
-                            </p>
-                        </div>
-                    </article>
                 </div>
+
             </div>
         </section>
 
@@ -215,7 +175,7 @@
         <div class="container">
 
             <p>
-                &copy; 2026 Nauval Adiva Daneshwara.
+                &copy; 2026 {{ name }}.
                 Fakultas Ilmu Komputer, Universitas Indonesia.
             </p>
 

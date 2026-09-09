@@ -33,7 +33,9 @@ SECRET_KEY = 'django-insecure-z7hrk*7)h-+&y&-=3@_y%o+07oos5j)tp$tkt37h!^e-1!as&3
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "nauval-adiva-myportofolio.pws.cs.ui.ac.id"
+    "nauval-adiva-myportofolio.pws.cs.ui.ac.id",
+    "127.0.0.1",
+    "localhost",
 ]
 
 # Application definition
@@ -45,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'main'
 ]
 
 MIDDLEWARE = [
