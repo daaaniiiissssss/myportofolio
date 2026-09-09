@@ -16,6 +16,8 @@ def show_main(request):
 def show_experience(request):
     experience_list = Experience.objects.all()
 
+    print("DEBUG EXPERIENCE COUNT:", experience_list.count())
+
     context = {
         'name': 'Nauval Adiva Daneshwara',
         'experience_list': experience_list,
