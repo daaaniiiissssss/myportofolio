@@ -17,6 +17,7 @@ def show_experience(request):
     experience_list = Experience.objects.all()
 
     context = {
+        'name': 'Nauval Adiva Daneshwara',
         'experience_list': experience_list,
     }
 

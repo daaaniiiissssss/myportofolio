@@ -38,6 +38,10 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://nauval-adiva-myportofolio.pws.cs.ui.ac.id",
+]
+
 # Application definition
 
 INSTALLED_APPS = [
