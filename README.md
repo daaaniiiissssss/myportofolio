@@ -7,7 +7,7 @@ dosen : Jessica Naraiswari Arwidarasti
 ### Tugas 1
 
 1. 
-Iya saya menggunakan <section> dan <article>. section saya gunakan untuk membagi halaman menjadi beberapa bagian
+Iya saya menggunakan section dan article. section saya gunakan untuk membagi halaman menjadi beberapa bagian
 seperti namanya (section = bagian), saya gunakan ini untuk
 membagi Profile, Education, dan Experience. Lalu article 
 saya gunakan untuk membagi setiap item pada section
@@ -35,3 +35,6 @@ Data portfolio disimpan di dalam model karena data dapat dikelola dan diperbarui
 
 3.
 makemigrations digunakan untuk membuat file migration sesuai model, kalo migrate digunakan untuk menerapkan migration tersebut ke database. Contohnya ketika menambahkan model Education dengan beberapa field baru, kita menjalankan python manage.py makemigrations untuk membuat file migration, kemudian menjalankan python manage.py migrate agar tabel Education dibuat di database.
+
+Penggunaan AI:
+Saya menggunakan ChatGPT untuk mendapatkan gambaran apa yang sekiranya berbeda dari pengerjaan saya saat tutorial. Lalu karena basically sama saja, saya tinggal melakukan ulang apayang saya lakukan saat tutorial 2.
