@@ -28,7 +28,7 @@
 
             <nav>
                 <a href="{% url 'main:show_main' %}">Profile</a>
-                <a href="#education">Education</a>
+                <a href="{% url 'main:show_education' %}">Education</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
 
@@ -97,72 +97,19 @@
         </section>
 
 
-        <section class="section education-section" id="education">
+       <section class="section education-section" id="education">
             <div class="container">
 
                 <div class="section-heading">
                     <p class="section-kicker">EDUCATION</p>
                     <h2>Education</h2>
-                </div>
+                    <p>
+                        Lihat riwayat pendidikan saya secara lengkap.
+                    </p>
 
-                <div class="education-list">
-
-                    <article class="education-item">
-                        <div class="education-year">
-                            2025 - Present
-                        </div>
-
-                        <div class="education-content">
-                            <h3>Universitas Indonesia</h3>
-
-                            <p class="education-program">
-                                S1 Sistem Informasi
-                            </p>
-
-                            <p>
-                                Fakultas Ilmu Komputer, Universitas Indonesia.
-                            </p>
-                        </div>
-                    </article>
-
-
-                    <article class="education-item">
-                        <div class="education-year">
-                            2022-2025
-                        </div>
-
-                        <div class="education-content">
-                            <h3>SMA Pribadi Bandung</h3>
-
-                            <p class="education-program">
-                                Sekolah Menengah Atas
-                            </p>
-
-                            <p>
-                                SMA Spaling kece se Bandung Raya
-                            </p>
-                        </div>
-                    </article>
-
-
-                    <article class="education-item">
-                        <div class="education-year">
-                            2019-2022
-                        </div>
-
-                        <div class="education-content">
-                            <h3>SMP Semesta Jangli</h3>
-
-                            <p class="education-program">
-                                Sekolah Menengah Pertama
-                            </p>
-
-                            <p>
-                                fun fact: saya angkatan pertama sekolah ini
-                            </p>
-                        </div>
-                    </article>
-
+                    <a href="{% url 'main:show_education' %}">
+                        Lihat Education
+                    </a>
                 </div>
 
             </div>
