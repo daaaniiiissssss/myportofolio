@@ -1,133 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
 
+{% block meta %}
     <title>{{ name }} - Portfolio</title>
+{% endblock meta %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{% block content %}
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
-        rel="stylesheet"
-    >
+<main>
 
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
+    <section class="hero" id="profile">
+        <div class="container hero-grid">
 
-<body>
+            <div class="hero-identity">
+                <p class="hero-kicker">
+                    {{ study_program }} &middot; Universitas Indonesia
+                </p>
 
-    <header class="site-header">
-        <div class="container">
-
-            <a href="{% url 'main:show_main' %}" class="brand">
-                {{ name }}
-            </a>
-
-            <nav>
-                <a href="{% url 'main:show_main' %}">Profile</a>
-                <a href="{% url 'main:show_education' %}">Education</a>
-                <a href="{% url 'main:show_experience' %}">Experience</a>
-            </nav>
-
-        </div>
-    </header>
-
-
-    <main>
-
-        <section class="hero" id="profile">
-            <div class="container hero-grid">
-
-                <div class="hero-identity">
-                    <p class="hero-kicker">
-                        {{ study_program }} &middot; Universitas Indonesia
-                    </p>
-
-                    <h1>
-                        {{ name }}
-                    </h1>
-                </div>
-
-
-                <div class="hero-photo">
-                    <div class="photo-block"></div>
-
-                    <img
-                        class="avatar"
-                        src="/static/img/profile.jpeg"
-                        alt="Photo of {{ name }}"
-                    >
-                </div>
-
-
-                <div class="hero-details">
-                    <p class="bio">
-                        {{ bio }}
-                    </p>
-
-                    <dl class="meta-list">
-
-                        <div class="meta-row">
-                            <dt>NPM</dt>
-                            <dd>{{ npm }}</dd>
-                        </div>
-
-                        <div class="meta-row">
-                            <dt>Program</dt>
-                            <dd>{{ study_program }}</dd>
-                        </div>
-
-                    </dl>
-
-                    <div class="social-links">
-                        <a
-                            href="https://github.com/daaaniiiissssss"
-                            class="social-link"
-                            target="_blank"
-                        >
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-
+                <h1>
+                    {{ name }}
+                </h1>
             </div>
-        </section>
 
+            <div class="hero-photo">
+                <div class="photo-block"></div>
 
-       <section class="section education-section" id="education">
-            <div class="container">
+                <img
+                    class="avatar"
+                    src="/static/img/profile.jpeg"
+                    alt="Photo of {{ name }}"
+                >
+            </div>
 
-                <div class="section-heading">
-                    <p class="section-kicker">EDUCATION</p>
-                    <h2>Education</h2>
-                    <p>
-                        Lihat riwayat pendidikan saya secara lengkap.
-                    </p>
+            <div class="hero-details">
+                <p class="bio">
+                    {{ bio }}
+                </p>
 
-                    <a href="{% url 'main:show_education' %}">
-                        Lihat Education
+                <dl class="meta-list">
+
+                    <div class="meta-row">
+                        <dt>NPM</dt>
+                        <dd>{{ npm }}</dd>
+                    </div>
+
+                    <div class="meta-row">
+                        <dt>Program</dt>
+                        <dd>{{ study_program }}</dd>
+                    </div>
+
+                </dl>
+
+                <div class="social-links">
+                    <a
+                        href="https://github.com/daaaniiiissssss"
+                        class="social-link"
+                        target="_blank"
+                    >
+                        GitHub
                     </a>
                 </div>
-
             </div>
-        </section>
-
-    </main>
-
-
-    <footer class="site-footer">
-        <div class="container">
-
-            <p>
-                &copy; 2026 {{ name }}.
-                Fakultas Ilmu Komputer, Universitas Indonesia.
-            </p>
 
         </div>
-    </footer>
+    </section>
 
-</body>
-</html>
+    <section class="section education-section" id="education">
+        <div class="container">
+
+            <div class="section-heading">
+                <p class="section-kicker">EDUCATION</p>
+                <h2>Education</h2>
+                <p>
+                    Lihat riwayat pendidikan saya secara lengkap.
+                </p>
+
+                <a href="{% url 'main:show_education' %}">
+                    Lihat Education
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock content %}
