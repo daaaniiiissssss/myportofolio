@@ -38,3 +38,17 @@ makemigrations digunakan untuk membuat file migration sesuai model, kalo migrate
 
 Penggunaan AI:
 Saya menggunakan ChatGPT untuk mendapatkan gambaran apa yang sekiranya berbeda dari pengerjaan saya saat tutorial. Lalu karena basically sama saja, saya tinggal melakukan ulang apayang saya lakukan saat tutorial 2.
+
+### Tugas 3
+
+1.
+Saya menggunakan ModelForm karena menurut saya cara ini lebih praktis dibandingkan membuat form HTML dari awal. Field yang ada di form bisa langsung mengikuti field yang ada di model, sehingga saya tidak perlu membuat dan mengatur setiap input satu per satu. Selain itu, data yang dimasukkan melalui form juga bisa langsung diproses dan disimpan ke database. Untuk token, digunakan pada form yang mengirim data menggunakan method POST. Token tersebut membantu memastikan bahwa request yang dikirim memang berasal dari form yang valid pada website dan bukan request yang tidak diinginkan.
+
+2.
+Menurut saya, JSON lebih banyak digunakan karena bentuknya lebih sederhana dan lebih ringkas dibandingkan XML. Struktur JSON juga cukup mudah dibaca, baik oleh manusia maupun program. Selain itu, formatnya cocok dengan struktur data yang sering digunakan dalam pemrograman web. Pada tugas ini, JSON saya gunakan untuk menyediakan data Education melalui sebuah endpoint yang bisa diakses dari URL tertentu.
+
+3.
+Ketika URL untuk JSON Education dibuka, request akan diarahkan ke fungsi get_education_json. Di dalam fungsi tersebut, saya mengambil semua data Education dari database menggunakan Education.objects.all(). Data tersebut kemudian diubah menjadi JSON menggunakan serializers.serialize(), lalu dikirim kembali menggunakan HttpResponse. Serialization diperlukan karena data yang diambil dari model Django masih berupa object atau QuerySet. Data tersebut perlu diubah terlebih dahulu ke format JSON supaya bisa dikirim melalui HTTP dan dibaca sebagai data JSON oleh aplikasi.
+
+Penggunaan AI:
+Saya menggunakan ChatGPT karena saya masih sedikit linglung penggunaan JSON, dan saat saya sudah commit, ada error (ga keubah padahal harusnya udah) sehingga saya menggunakan AI untuk mencari solusi nya.
