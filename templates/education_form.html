@@ -8,12 +8,19 @@
 <main>
     <section class="experience-section">
         <div class="container">
-            <h1>Tambah Pendidikan</h1>
+            <h1>
+                {% if education %}
+                    Edit Pendidikan
+                {% else %}
+                    Tambah Pendidikan
+                {% endif %}
+            </h1>
 
-            <form method="post"
-                  action="{% url 'main:create_education' %}"
-                  class="project-form">
-
+            <form
+                method="post"
+                action="{% if education %}{% url 'main:update_education' education.id %}{% else %}{% url 'main:create_education' %}{% endif %}"
+                class="project-form"
+            >
                 {% csrf_token %}
 
                 {% for field in form %}
@@ -25,20 +32,27 @@
                         {{ field }}
 
                         {% for error in field.errors %}
-                            <p class="form-error">{{ error }}</p>
+                            <p class="form-error">
+                                {{ error }}
+                            </p>
                         {% endfor %}
                     </div>
                 {% endfor %}
 
                 <button type="submit" class="button">
-                    Tambah Pendidikan
+                    {% if education %}
+                        Simpan Perubahan
+                    {% else %}
+                        Tambah Pendidikan
+                    {% endif %}
                 </button>
 
-                <a href="{% url 'main:show_education' %}"
-                   class="button button-secondary">
+                <a
+                    href="{% url 'main:show_education' %}"
+                    class="button button-secondary"
+                >
                     Batal
                 </a>
-
             </form>
         </div>
     </section>
