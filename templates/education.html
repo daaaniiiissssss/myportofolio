@@ -54,6 +54,24 @@
                                 Sekarang
                             {% endif %}
                         </p>
+
+                        <a
+                            href="{% url 'main:update_education' education.id %}"
+                            class="button"
+                        >
+                            Edit
+                        </a>
+
+                        <form
+                            method="post"
+                            action="{% url 'main:delete_education' education.id %}"
+                            style="display: inline;"
+                        >
+                            {% csrf_token %}
+                            <button type="submit" class="button button-danger">
+                                Delete
+                            </button>
+                        </form>
                     </article>
 
                 {% empty %}

@@ -66,7 +66,6 @@
 
     <section class="section education-section" id="education">
         <div class="container">
-
             <div class="section-heading">
                 <p class="section-kicker">EDUCATION</p>
                 <h2>Education</h2>
@@ -74,11 +73,16 @@
                     Lihat riwayat pendidikan saya secara lengkap.
                 </p>
 
-                <a href="{% url 'main:show_education' %}">
-                    Lihat Education
-                </a>
-            </div>
+                <div class="education-actions">
+                    <a href="{% url 'main:show_education' %}" class="button">
+                        Lihat Pendidikan
+                    </a>
 
+                    <a href="{% url 'main:create_education' %}" class="button button-secondary">
+                        Tambah Pendidikan
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 

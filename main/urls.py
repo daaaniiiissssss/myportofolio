@@ -4,6 +4,9 @@ from main.views import (
     show_experience,
     show_education,
     create_education,
+    update_education,
+    delete_education,
+    get_education_json,
 )
 
 app_name = "main"
@@ -17,4 +20,20 @@ urlpatterns = [
         create_education,
         name="create_education"
     ),
+    path(
+        "education/<int:id>/edit/",
+        update_education,
+        name="update_education"
+    ),
+    path(
+        "education/<int:id>/delete/",
+        delete_education,
+        name="delete_education"
+    ),
+
+    path(
+    "api/education/",
+    get_education_json,
+    name="get_education_json"
+),
 ]
