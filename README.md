@@ -52,3 +52,7 @@ Ketika URL untuk JSON Education dibuka, request akan diarahkan ke fungsi get_edu
 
 Penggunaan AI:
 Saya menggunakan ChatGPT karena saya masih sedikit linglung penggunaan JSON, dan saat saya sudah commit, ada error (ga keubah padahal harusnya udah) sehingga saya menggunakan AI untuk mencari solusi nya.
+
+Tugas 4
+Penggunaan AI:
+Untuk tugas ini, saya menggunakan AI karna tidak begitu paham dengan cara menambahkan superuser dan editor, itulahh mengapa saya menggunakan ChatGPT.
