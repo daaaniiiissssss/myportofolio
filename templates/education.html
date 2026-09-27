@@ -55,12 +55,44 @@
                             {% endif %}
                         </p>
 
-                        {% if user.is_superuser %}
-                            <a href="{% url 'main:update_education' education.id %}" class="button">Edit</a>
+                        <div class="star-section">
+                            <p>
+                                ⭐ {{ education.starred_by.count }} Star
+                            </p>
 
+                            {% if user.is_authenticated %}
+                                <form method="post" action="{% url 'main:toggle_star' education.id %}">
+                                    {% csrf_token %}
+
+                                    {% if user in education.starred_by.all %}
+                                        <button type="submit" class="button">
+                                            Batalkan Star
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" class="button">
+                                            Beri Star
+                                        </button>
+                                    {% endif %}
+                                </form>
+                            {% else %}
+                                <p>
+                                    Login untuk memberikan star.
+                                </p>
+                            {% endif %}
+                        </div>
+
+                        {% if user.is_superuser or is_editor %}
+                            <a href="{% url 'main:update_education' education.id %}" class="button">
+                                Edit
+                            </a>
+                        {% endif %}
+
+                        {% if user.is_superuser %}
                             <form method="post" action="{% url 'main:delete_education' education.id %}" style="display: inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="button button-danger">Hapus</button>
+                                <button type="submit" class="button button-danger">
+                                    Hapus
+                                </button>
                             </form>
                         {% endif %}
                     </article>

@@ -10,6 +10,7 @@ from main.views import (
     register,
     login_user,
     logout_user,
+    toggle_star,
 )
 
 app_name = "main"
@@ -57,4 +58,10 @@ urlpatterns = [
     logout_user, 
     name="logout"
     ),
+
+    path(
+    "education/<int:id>/star/",
+    toggle_star,
+    name="toggle_star"
+),
 ]

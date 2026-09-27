@@ -42,11 +42,21 @@ def show_experience(request):
 
 def show_education(request):
     response = get_education_json(request)
+    education_data = serializers.deserialize("json", response.content)
 
-    education_data = serializers.deserialize(
-        "json",
-        response.content
-    )
+    education_list = []
+    for item in education_data:
+        education_list.append(item.object)
+
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
+    context = {
+        "name": "Nauval Adiva Daneshwara",
+        "education_list": education_list,
+        "is_editor": is_editor,
+    }
+
+    return render(request, "education.html", context)
 
     education_list = []
 
@@ -83,15 +93,18 @@ def create_education(request):
 
 @login_required(login_url="/login/")
 def update_education(request, id):
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
+    if not request.user.is_superuser and not is_editor:
+        raise PermissionDenied
+
     education = get_object_or_404(Education, id=id)
 
     if request.method == "POST":
         form = EducationForm(request.POST, instance=education)
-
         if form.is_valid():
             form.save()
             return redirect("main:show_education")
-
     else:
         form = EducationForm(instance=education)
 
@@ -100,7 +113,6 @@ def update_education(request, id):
         "form": form,
         "education": education,
     }
-
     return render(request, "education_form.html", context)
 
 @login_required(login_url="/login/")
@@ -173,3 +185,17 @@ def logout_user(request):
     response.delete_cookie("last_login")
 
     return response
+
+@login_required(login_url="/login/")
+def toggle_star(request, id):
+    education = get_object_or_404(Education, id=id)
+
+    if request.method != "POST":
+        raise PermissionDenied
+
+    if education.starred_by.filter(id=request.user.id).exists():
+        education.starred_by.remove(request.user)
+    else:
+        education.starred_by.add(request.user)
+
+    return redirect("main:show_education")
