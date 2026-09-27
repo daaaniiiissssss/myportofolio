@@ -7,6 +7,9 @@ from main.views import (
     update_education,
     delete_education,
     get_education_json,
+    register,
+    login_user,
+    logout_user,
 )
 
 app_name = "main"
@@ -35,5 +38,23 @@ urlpatterns = [
     "api/education/",
     get_education_json,
     name="get_education_json"
-),
+    ),
+
+    path(
+    "register/", 
+    register, 
+    name="register"
+    ),
+
+    path(
+    "login/", 
+    login_user, 
+    name="login"
+    ),
+
+    path(
+    "logout/", 
+    logout_user, 
+    name="logout"
+    ),
 ]
