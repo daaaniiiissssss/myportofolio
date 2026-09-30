@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 from main.forms import EducationForm
 from main.models import Experience, Education
@@ -41,38 +42,14 @@ def show_experience(request):
     return render(request, 'experience.html', context)
 
 def show_education(request):
-    response = get_education_json(request)
-    education_data = serializers.deserialize("json", response.content)
-
-    education_list = []
-    for item in education_data:
-        education_list.append(item.object)
-
     is_editor = request.user.groups.filter(name="Editor").exists()
 
     context = {
         "name": "Nauval Adiva Daneshwara",
-        "education_list": education_list,
         "is_editor": is_editor,
     }
 
     return render(request, "education.html", context)
-
-    education_list = []
-
-    for item in education_data:
-        education_list.append(item.object)
-
-    context = {
-        "name": "Nauval Adiva Daneshwara",
-        "education_list": education_list,
-    }
-
-    return render(
-        request,
-        "education.html",
-        context
-    )
 
 @login_required(login_url="/login/")
 def create_education(request):
@@ -129,17 +106,31 @@ def delete_education(request, id):
     return redirect("main:show_education")
 
 def get_education_json(request):
+    search = request.GET.get("search", "")
+
     education_list = Education.objects.all()
 
-    data = serializers.serialize(
-        "json",
-        education_list
-    )
+    if search:
+        education_list = education_list.filter(
+            Q(school__icontains=search) |
+            Q(degree__icontains=search) |
+            Q(description__icontains=search)
+        )
 
-    return HttpResponse(
-        data,
-        content_type="application/json"
-    )
+    data = []
+
+    for education in education_list:
+        data.append({
+            "id": education.id,
+            "school": education.school,
+            "degree": education.degree,
+            "description": education.description,
+            "started_at": education.started_at,
+            "ended_at": education.ended_at,
+            "star_count": education.starred_by.count(),
+        })
+
+    return JsonResponse(data, safe=False)
 
 def register(request):
     form = UserCreationForm(request.POST or None)
