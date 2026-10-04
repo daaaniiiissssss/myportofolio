@@ -4,13 +4,16 @@ from main.views import (
     show_experience,
     show_education,
     create_education,
+    create_education_ajax,
     update_education,
+    update_education_ajax,
     delete_education,
     get_education_json,
     register,
     login_user,
     logout_user,
     toggle_star,
+    delete_education_ajax,
 )
 
 app_name = "main"
@@ -63,5 +66,23 @@ urlpatterns = [
     "education/<int:id>/star/",
     toggle_star,
     name="toggle_star"
-),
+    ),
+
+    path(
+    "education/add-ajax/",
+    create_education_ajax,
+    name="create_education_ajax"
+    ),
+
+    path(
+    "education/<int:id>/edit-ajax/",
+    update_education_ajax,
+    name="update_education_ajax"
+    ),
+
+    path(
+    "education/<int:id>/delete-ajax/",
+    delete_education_ajax,
+    name="delete_education_ajax"
+    ),
 ]
