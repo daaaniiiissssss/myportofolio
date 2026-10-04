@@ -56,3 +56,16 @@ Saya menggunakan ChatGPT karena saya masih sedikit linglung penggunaan JSON, dan
 Tugas 4
 Penggunaan AI:
 Untuk tugas ini, saya menggunakan AI karna tidak begitu paham dengan cara menambahkan superuser dan editor, itulahh mengapa saya menggunakan ChatGPT.
+
+Tugas 5
+1.
+Debouncing adalah cara untuk membatasi request agar tidak dikirim terus-menerus setiap kali kita mengetik. Pada pencarian AJAX, ini berguna supaya server tidak menerima terlalu banyak request dan pencarian jadi lebih ringan.
+
+2.
+await digunakan untuk menunggu fetch() selesai mengambil data dari server. Kalau tidak pakai await, hasilnya masih berupa Promise, jadi data yang kita butuhkan belum bisa langsung dipakai.
+
+3.
+XSS adalah serangan dengan memasukkan script atau kode berbahaya ke dalam halaman web. Pada AJAX/JavaScript, hal ini bisa terjadi kalau data dari server langsung dimasukkan ke HTML tanpa pengamanan, misalnya menggunakan innerHTML. Sedangkan Django template sudah punya auto-escaping secara default, sehingga lebih aman dari serangan seperti ini.
+
+Penggunaan AI:
+Saya menggunakan AI mostly untuk tutorial 5 karena saya masih kuran familiar dengan JSON.
