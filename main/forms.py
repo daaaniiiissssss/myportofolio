@@ -1,5 +1,7 @@
 from django import forms
 from main.models import Education
+from django.core.exceptions import ValidationError
+from django.utils.html import strip_tags
 
 
 class EducationForm(forms.ModelForm):
@@ -51,3 +53,25 @@ class EducationForm(forms.ModelForm):
                 }
             ),
         }
+
+    def clean_school(self):
+        school = strip_tags(
+            self.cleaned_data["school"]
+        ).strip()
+
+        if not school:
+            raise ValidationError(
+                "Nama sekolah tidak boleh hanya berisi tag HTML."
+            )
+
+        return school
+
+    def clean_degree(self):
+        return strip_tags(
+            self.cleaned_data["degree"]
+        ).strip()
+
+    def clean_description(self):
+        return strip_tags(
+            self.cleaned_data["description"]
+        ).strip()
