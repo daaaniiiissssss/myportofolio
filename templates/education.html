@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -187,7 +186,9 @@
             <div
                 class="experience-grid"
                 id="education-container"
-                data-json-url="/api/education/"
+                data-list-url="{% url 'api:education-list' %}"
+                data-detail-url="{% url 'api:education-detail' 0 %}"
+                data-star-url="{% url 'api:education-star' 0 %}"
                 data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}"
                 data-superuser="{{ user.is_superuser|yesno:'true,false' }}"
                 data-editor="{{ is_editor|yesno:'true,false' }}"
