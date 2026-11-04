@@ -38,3 +38,34 @@ makemigrations digunakan untuk membuat file migration sesuai model, kalo migrate
 
 Penggunaan AI:
 Saya menggunakan ChatGPT untuk mendapatkan gambaran apa yang sekiranya berbeda dari pengerjaan saya saat tutorial. Lalu karena basically sama saja, saya tinggal melakukan ulang apayang saya lakukan saat tutorial 2.
+
+### Tugas 3
+
+1.
+Saya menggunakan ModelForm karena menurut saya cara ini lebih praktis dibandingkan membuat form HTML dari awal. Field yang ada di form bisa langsung mengikuti field yang ada di model, sehingga saya tidak perlu membuat dan mengatur setiap input satu per satu. Selain itu, data yang dimasukkan melalui form juga bisa langsung diproses dan disimpan ke database. Untuk token, digunakan pada form yang mengirim data menggunakan method POST. Token tersebut membantu memastikan bahwa request yang dikirim memang berasal dari form yang valid pada website dan bukan request yang tidak diinginkan.
+
+2.
+Menurut saya, JSON lebih banyak digunakan karena bentuknya lebih sederhana dan lebih ringkas dibandingkan XML. Struktur JSON juga cukup mudah dibaca, baik oleh manusia maupun program. Selain itu, formatnya cocok dengan struktur data yang sering digunakan dalam pemrograman web. Pada tugas ini, JSON saya gunakan untuk menyediakan data Education melalui sebuah endpoint yang bisa diakses dari URL tertentu.
+
+3.
+Ketika URL untuk JSON Education dibuka, request akan diarahkan ke fungsi get_education_json. Di dalam fungsi tersebut, saya mengambil semua data Education dari database menggunakan Education.objects.all(). Data tersebut kemudian diubah menjadi JSON menggunakan serializers.serialize(), lalu dikirim kembali menggunakan HttpResponse. Serialization diperlukan karena data yang diambil dari model Django masih berupa object atau QuerySet. Data tersebut perlu diubah terlebih dahulu ke format JSON supaya bisa dikirim melalui HTTP dan dibaca sebagai data JSON oleh aplikasi.
+
+Penggunaan AI:
+Saya menggunakan ChatGPT karena saya masih sedikit linglung penggunaan JSON, dan saat saya sudah commit, ada error (ga keubah padahal harusnya udah) sehingga saya menggunakan AI untuk mencari solusi nya.
+
+Tugas 4
+Penggunaan AI:
+Untuk tugas ini, saya menggunakan AI karna tidak begitu paham dengan cara menambahkan superuser dan editor, itulahh mengapa saya menggunakan ChatGPT.
+
+Tugas 5
+1.
+Debouncing adalah cara untuk membatasi request agar tidak dikirim terus-menerus setiap kali kita mengetik. Pada pencarian AJAX, ini berguna supaya server tidak menerima terlalu banyak request dan pencarian jadi lebih ringan.
+
+2.
+await digunakan untuk menunggu fetch() selesai mengambil data dari server. Kalau tidak pakai await, hasilnya masih berupa Promise, jadi data yang kita butuhkan belum bisa langsung dipakai.
+
+3.
+XSS adalah serangan dengan memasukkan script atau kode berbahaya ke dalam halaman web. Pada AJAX/JavaScript, hal ini bisa terjadi kalau data dari server langsung dimasukkan ke HTML tanpa pengamanan, misalnya menggunakan innerHTML. Sedangkan Django template sudah punya auto-escaping secara default, sehingga lebih aman dari serangan seperti ini.
+
+Penggunaan AI:
+Saya menggunakan AI mostly untuk tutorial 5 karena saya masih kuran familiar dengan JSON.
