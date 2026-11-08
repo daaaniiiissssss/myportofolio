@@ -69,3 +69,20 @@ XSS adalah serangan dengan memasukkan script atau kode berbahaya ke dalam halama
 
 Penggunaan AI:
 Saya menggunakan AI mostly untuk tutorial 5 karena saya masih kuran familiar dengan JSON.
+
+Tugas 6:
+
+1.
+REST (Representational State Transfer) adalah gaya arsitektur untuk merancang web API, bukan format data atau library. Prinsipnya: data diperlakukan sebagai resource yang ditunjuk oleh URL (misalnya /api/v1/experiences/ dan /api/v1/experiences/<uuid>/), tindakan dinyatakan oleh HTTP method (GET membaca, POST membuat, PUT/PATCH mengubah, DELETE menghapus), klien dan server bertukar representasi data (JSON), dan server bersifat stateless. Mengembalikan JSON saja belum cukup karena endpoint seperti /projects/add-ajax/ atau /projects/<id>/delete/ juga mengembalikan JSON tetapi menaruh tindakan di URL dan memakai POST untuk semuanya, sehingga tidak mengikuti aturan resource dan method. PUT mengirim representasi pengganti secara utuh, sehingga semua field wajib harus dikirim; cocok ketika klien memegang data lengkap, misalnya form edit yang mengirim ulang seluruh isi pengalaman. PATCH hanya mengirim field yang berubah (partial=True); cocok untuk perubahan kecil, misalnya hanya mengganti judul atau menambahkan tanggal selesai tanpa menyentuh field lain.
+
+2.
+Serializer adalah lapisan yang mengubah objek model menjadi tipe data Python yang bisa dirender menjadi JSON (serialization), dan sebaliknya memvalidasi serta membersihkan input klien sebelum disimpan (deserialization). Pada ExperienceSerializer, satu kelas mendefinisikan field yang dikirim, validasi (validate_title dengan strip_tags, validasi URL thumbnail, pilihan kategori), field read-only hasil perhitungan (star_count, is_starred), dan implementasi create/update lewat ModelSerializer. Dibandingkan merakit dictionary manual dengan JsonResponse seperti Tugas 5, serializer menghilangkan kode perulangan, menyatukan aturan validasi di satu tempat sehingga berlaku untuk semua jalur input, memberi pesan error per field secara konsisten (400), dan membuat bentuk data eksplisit sehingga data sensitif seperti email atau password tidak ikut terkirim.
+
+3.
+Autentikasi menjawab "siapa kamu": SessionAuthentication membaca cookie session dan mengisi request.user. Otorisasi menjawab "apa yang boleh kamu lakukan": permission class (IsPortfolioOwnerOrEditorOrReadOnly) memutuskan apakah request boleh diteruskan berdasarkan user dan method. Keduanya terpisah; pengunjung anonim lolos autentikasi sebagai anonim tetapi ditolak permission dengan 403 saat menulis. Hak akses harus diperiksa di server karena menyembunyikan tombol di template hanya mengubah tampilan; siapa pun tetap bisa mengirim request langsung lewat DevTools, curl, atau Browsable API. Hanya pemeriksaan di server yang benar-benar menolak tindakan, dan test API (misalnya pengunjung PATCH/DELETE harus 403 dan isi database tidak berubah) membuktikannya.
+
+4.
+Dengan SessionAuthentication, browser otomatis mengirim cookie session ke domain yang sama pada setiap request, termasuk request yang dipicu oleh situs lain yang sedang dibuka pengguna. Tanpa token CSRF, situs jahat bisa membuat browser korban yang sedang login mengirim POST/PUT/PATCH/DELETE yang dianggap sah oleh server (Cross-Site Request Forgery). Token CSRF hanya diketahui oleh halaman kita sendiri dan dikirim lewat header X-CSRFToken, sehingga request dari situs lain ditolak dengan 403. force_authenticate melewati proses login dan SessionAuthentication, sehingga pemeriksaan CSRF yang berada di SessionAuthentication tidak pernah dijalankan; test tetap hijau meskipun CSRF tidak berfungsi. Karena itu test CSRF memakai APIClient(enforce_csrf_checks=True) dan .login() yang membuat session sungguhan, lalu membuktikan POST tanpa token ditolak dan POST dengan token berhasil.
+
+Penggunaan AI:
+Saya menggunakan Claude (Anthropic) lewat chat untuk menyesuaikan Tutorial 07 dan Tugas 6 ke struktur proyek saya (model Education dan Experience), saya mayoritas menggunakan AI untuk keperluan saat saya kebingungan dalam dimana saya harus menambahkan sesuatu.
