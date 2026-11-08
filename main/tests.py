@@ -51,46 +51,21 @@ class MainTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "experience.html")
+        # Cards are loaded from the API, so check the hook the script uses.
         self.assertContains(
             response,
-            self.experience.description
-        )
-        self.assertContains(
-            response,
-            "Part-Time"
-        )
-        self.assertContains(
-            response,
-            "Sedang berlangsung"
+            f'data-list-url="{reverse("api:experience-list")}"'
         )
         self.assertContains(
             response,
             f'href="{reverse("main:show_main")}"'
         )
 
-    def test_empty_experience_page(self):
-        Experience.objects.all().delete()
-
-        response = self.client.get(
-            reverse("main:show_experience")
-        )
-
-        self.assertContains(
-            response,
-            "Belum ada pengalaman yang ditambahkan."
-        )
-
     def test_completed_experience(self):
         self.experience.ended_at = timezone.now()
         self.experience.save()
 
-        response = self.client.get(
-            reverse("main:show_experience")
-        )
-
         self.assertFalse(self.experience.is_ongoing)
-        self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
 
 
 class EducationViewTest(TestCase):
@@ -102,6 +77,11 @@ class EducationViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "education.html")
+        # Cards are loaded from the API, so check the hook the script uses.
+        self.assertContains(
+            response,
+            f'data-list-url="{reverse("api:education-list")}"'
+        )
 
     def test_education_data_appears(self):
         education = Education.objects.create(
@@ -112,20 +92,24 @@ class EducationViewTest(TestCase):
             ended_at=None
         )
 
+        # The page loads its cards from the API, so verify the API data.
         response = self.client.get(
-            reverse("main:show_education")
+            reverse("api:education-list")
         )
 
-        self.assertContains(response, education.school)
-        self.assertContains(response, education.degree)
-        self.assertContains(response, education.description)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]["school"], education.school)
+        self.assertEqual(response.data[0]["degree"], education.degree)
+        self.assertEqual(
+            response.data[0]["description"],
+            education.description
+        )
 
     def test_education_empty_state(self):
         response = self.client.get(
-            reverse("main:show_education")
+            reverse("api:education-list")
         )
 
-        self.assertContains(
-            response,
-            "Belum ada pendidikan yang ditambahkan."
-        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, [])

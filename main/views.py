@@ -33,11 +33,12 @@ def show_main(request):
 
 
 def show_experience(request):
-    experience_list = Experience.objects.all()
+    is_editor = request.user.groups.filter(name="Editor").exists()
 
     context = {
         'name': 'Nauval Adiva Daneshwara',
-        'experience_list': experience_list,
+        'is_editor': is_editor,
+        'category_choices': Experience.EXPERIENCE_CHOICES,
     }
 
     return render(request, 'experience.html', context)

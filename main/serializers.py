@@ -1,14 +1,41 @@
 from django.utils.html import strip_tags
 from rest_framework import serializers
 
-from main.models import Education
+from main.models import Education, Experience
 
 
-class EducationSerializer(serializers.ModelSerializer):
+def clean_text(value, label):
+    """Strip HTML tags and reject values that become empty (like Tugas 5)."""
+    value = strip_tags(value).strip()
+    if not value:
+        raise serializers.ValidationError(f"{label} cannot be empty.")
+    return value
+
+
+class StarredModelSerializer(serializers.ModelSerializer):
+    """
+    Read-only star fields shared by every model that has `starred_by`.
+    Only usernames are exposed, never email or password data.
+    """
+
     star_count = serializers.SerializerMethodField()
     is_starred = serializers.SerializerMethodField()
     starred_by_names = serializers.SerializerMethodField()
 
+    def get_star_count(self, obj):
+        return obj.starred_by.count()
+
+    def get_is_starred(self, obj):
+        request = self.context.get("request")
+        if request is None or not request.user.is_authenticated:
+            return False
+        return request.user in obj.starred_by.all()
+
+    def get_starred_by_names(self, obj):
+        return ", ".join(user.username for user in obj.starred_by.all())
+
+
+class EducationSerializer(StarredModelSerializer):
     class Meta:
         model = Education
         fields = [
@@ -19,26 +46,13 @@ class EducationSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
 
     def validate_school(self, value):
-        value = strip_tags(value).strip()
-        if not value:
-            raise serializers.ValidationError(
-                "School name cannot be empty."
-            )
-        return value
+        return clean_text(value, "School name")
 
     def validate_degree(self, value):
-        value = strip_tags(value).strip()
-        if not value:
-            raise serializers.ValidationError("Degree cannot be empty.")
-        return value
+        return clean_text(value, "Degree")
 
     def validate_description(self, value):
-        value = strip_tags(value).strip()
-        if not value:
-            raise serializers.ValidationError(
-                "Description cannot be empty."
-            )
-        return value
+        return clean_text(value, "Description")
 
     def validate(self, attrs):
         # Works for create, PUT, and PATCH (falls back to the saved value).
@@ -54,14 +68,25 @@ class EducationSerializer(serializers.ModelSerializer):
             )
         return attrs
 
-    def get_star_count(self, obj):
-        return obj.starred_by.count()
 
-    def get_is_starred(self, obj):
-        request = self.context.get("request")
-        if request is None or not request.user.is_authenticated:
-            return False
-        return request.user in obj.starred_by.all()
+class ExperienceSerializer(StarredModelSerializer):
+    category_display = serializers.CharField(
+        source="get_category_display", read_only=True
+    )
+    is_ongoing = serializers.BooleanField(read_only=True)
 
-    def get_starred_by_names(self, obj):
-        return ", ".join(user.username for user in obj.starred_by.all())
+    class Meta:
+        model = Experience
+        fields = [
+            "id", "title", "description", "category", "category_display",
+            "thumbnail", "started_at", "ended_at", "is_ongoing",
+            "star_count", "is_starred", "starred_by_names",
+        ]
+        # started_at is auto_now_add, so clients can never set it.
+        read_only_fields = ["id", "started_at"]
+
+    def validate_title(self, value):
+        return clean_text(value, "Title")
+
+    def validate_description(self, value):
+        return clean_text(value, "Description")
